@@ -40,29 +40,3 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
           heroku_email: ${{secrets.HEROKU_EMAIL}}
-          
-  discord-notification:
-    if: always()
-    name: Workflow Status
-    needs:
-      - build
-      - deploy
-    runs-on: ubuntu-latest
-      
-    steps:
-      - uses: actions/checkout@master
-      
-      - name: get version
-        id: version
-        uses: notiz-dev/github-action-json-property@release
-        with: 
-          path: 'package.json'
-          prop_path: 'version'
-      - run: echo ${{steps.version.outputs.prop}}
-      
-      - name: Discord Workflow Notifications (Deployment Completion)
-        env:
-          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_URI }}
-        uses: Ilshidur/action-discord@master
-        with:
-          args: 'The project {{ EVENT_PAYLOAD.repository.full_name }} has been deployed.'
