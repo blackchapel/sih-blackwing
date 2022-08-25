@@ -52,10 +52,35 @@ const tenderSchema = new mongoose.Schema({
                 type: String,
                 required: false
             },
-            file: {
-                type: Buffer,
+            file: [{
+                type: String,
                 required: false
-            }
+            }]
+        }],
+        required: false
+    },
+    boq: {
+        type: [{ //itemdescrition, quantity, units, rate, preferredmodel
+                itemdescription: {
+                    type: String,
+                    required: false
+                },
+                quantity: {
+                    type: Number,
+                    required: false
+                },
+                units: {
+                    type: String,
+                    required: false
+                },
+                rate: {
+                    type: Number,
+                    required: false
+                },
+                preferredmodel: {
+                    type: String,
+                    required: false
+                }
         }],
         required: false
     },
