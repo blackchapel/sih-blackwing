@@ -1,5 +1,6 @@
 const Bidder = require('../models/bidder.schema');
 const Bid = require('./../models/bid.schema');
+const Tender = require('./../models/tender.schema');
 const verifyGstin = require('./verification.service');
 const { createUser } = require('./user.service');
 const { encrypt, decrypt } = require('./../utilities/utils');
@@ -201,8 +202,14 @@ const getTendersAlloted = async (req) => {
 
     const allotedBids = await Bid.aggregate(aggregationPipeline);
 
+    const allotedTenders = [];
+    for await (const bid of allotedBids) {
+        let tender = await Tender.findById(bid.tenderid);
+        allotedTenders.push(tender);
+    }
+
     const data = {
-        allotedBids
+        allotedTenders
     };
     const encryptedData = encrypt(data);
 
