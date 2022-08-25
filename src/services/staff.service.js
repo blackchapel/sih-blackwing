@@ -1,5 +1,6 @@
 const Staff = require('./../models/staff.schema');
 const { createUser } = require('./user.service');
+const { hashPassword } = require('./../utilities/utils');
 
 const staffList = async (req) => {
     let result;
@@ -47,10 +48,10 @@ const staffById = async (req) => {
 
 const staffCreate = async (req) => {
     let result;
+    password = hashPassword(req.body.password);
     const staff = await Staff.findById(req.parentId);
     let newStaff = new Staff({
-        departmentid: staff.departmentid,
-        userid: req.userId,
+        departmentid: req.body.departmentid,
         title: req.body.title,
         name: req.body.name,
         dateofbirth: req.body.dateofbirth,
@@ -60,11 +61,15 @@ const staffCreate = async (req) => {
         designation: req.body.designation,
         address: req.body.address,
         mobile: req.body.mobile,
-        role: req.body.role
+        role: req.body.role,
+        password: req.body.password
     });
-    newStaff = await newStaff.save();
+    await newStaff.save();
 
     const newUser = await createUser(req, newStaff, req.body.role);
+
+    newStaff.userid = newUser._id;
+    await newStaff.save();
 
     result = {
         message: 'Staff successfully created',

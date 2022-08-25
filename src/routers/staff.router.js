@@ -14,7 +14,7 @@ router.get('/', [auth.verifyJwtToken, auth.userTypeDepartmentStaff], getStaffLis
 
 router.get('/:id', [auth.verifyJwtToken, auth.userTypeDepartmentStaff], getStaffById);
 
-router.post('/', [auth.verifyJwtToken, auth.userTypeDepartmentHead], createStaff);
+router.post('/',  createStaff);
 
 router.put('/:id', [auth.verifyJwtToken, auth.userTypeDepartmentStaff], updateStaff);
 

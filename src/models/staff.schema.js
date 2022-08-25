@@ -8,7 +8,7 @@ const staffSchema = new mongoose.Schema(
         },
         userid: {
             type: String,
-            required: true
+            required: false
         },
         title: {
             type: String,
