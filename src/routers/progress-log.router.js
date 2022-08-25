@@ -11,6 +11,6 @@ const router = new express.Router();
 
 router.get('/', [auth.verifyJwtToken, auth.userTypeBidder], getProgressLogList);
 
-router.post('/', [auth.verifyJwtToken, auth.userTypeBidder], decryptData, upload.single('progresslogfile'), createProgressLog);
+router.post('/', [auth.verifyJwtToken, auth.userTypeBidder], upload.single('progresslogfile'), createProgressLog);
 
 module.exports = router;
