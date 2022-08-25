@@ -220,11 +220,49 @@ const getTendersAlloted = async (req) => {
     return result;
 }
 
+const getTendersAllottedSelected = async (req) => {
+    let result;
+    const bidder = await Bidder.findById(req.params.id);
+
+    if (!bidder) {
+        result = {
+            message: 'Bidder not found',
+            error: 404
+        };
+    }
+
+    let aggregationPipeline = [];
+    const queryObj = {
+        status: 'FINALIZED' | 'ACCEPTED'
+    };
+    aggregationPipeline.push({ $match: queryObj });
+
+    const allotedBids = await Bid.aggregate(aggregationPipeline);
+
+    const allotedTenders = [];
+    for await (const bid of allotedBids) {
+        let tender = await Tender.findById(bid.tenderid);
+        allotedTenders.push(tender);
+    }
+
+    const data = {
+        allotedTenders
+    };
+    const encryptedData = encrypt(data);
+
+    result = {
+        message: 'Alloted & selected tender list',
+        data: encryptedData
+    };
+    return result;
+}
+
 module.exports = {
     bidderList,
     bidderById,
     bidderCreate,
     bidderUpdate,
     bidderDelete,
-    getTendersAlloted
+    getTendersAlloted,
+    getTendersAllottedSelected
 };

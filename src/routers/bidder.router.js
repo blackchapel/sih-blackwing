@@ -6,7 +6,8 @@ const {
     getBidderList, 
     updateBidder, 
     deleteBidder,
-    getAllotedTenders
+    getAllotedTenders,
+    getAllotedSelectedTenders
 } = require('./../controllers/bidder.controller');
 
 const router = new express.Router();
@@ -22,5 +23,9 @@ router.put('/:id', [auth.verifyJwtToken, auth.userTypeBidder], updateBidder);
 router.delete('/:id', [auth.verifyJwtToken, auth.userTypeBidder], deleteBidder);
 
 router.get('/', [auth.verifyJwtToken, auth.userTypeBidder],getBidderList);
+
+router.get('/allotted/:id', [auth.verifyJwtToken, auth.userTypeBidder], getAllotedTenders);
+
+router.get('/applied/:id', [auth.verifyJwtToken, auth.userTypeBidder], getAllotedSelectedTenders);
 
 module.exports = router;
