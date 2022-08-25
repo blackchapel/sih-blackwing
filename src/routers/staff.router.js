@@ -10,11 +10,11 @@ const {
 
 const router = new express.Router();
 
-router.get('/', [auth.verifyJwtToken, auth.userTypeDepartmentHead],getStaffList);
+router.get('/', [auth.verifyJwtToken, auth.userTypeDepartmentStaff], getStaffList);
 
-router.get('/:id', [auth.verifyJwtToken, auth.userTypeDepartmentStaff],getStaffById);
+router.get('/:id', [auth.verifyJwtToken, auth.userTypeDepartmentStaff], getStaffById);
 
-router.post('/', [auth.verifyJwtToken, auth.userTypeDepartmentHead], createStaff);
+router.post('/',  createStaff);
 
 router.put('/:id', [auth.verifyJwtToken, auth.userTypeDepartmentStaff], updateStaff);
 
