@@ -1,6 +1,6 @@
 {
   "name": "sih-blackwing",
-  "version": "0.0.35",
+  "version": "0.0.39",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -21,12 +21,13 @@
     "crypto-js": "^4.1.1",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
-    "fast-two-sms": "^3.0.0",
+    "ipfs-http-client": "^56.0.3",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.4.7",
     "morgan": "^1.10.0",
     "nodemailer": "^6.7.7",
     "nodemon": "^2.0.19",
-    "speakeasy": "^2.0.0"
+    "speakeasy": "^2.0.0",
+    "twilio": "^3.80.1"
   }
 }

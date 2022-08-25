@@ -51,8 +51,7 @@ const getUserById = async(id) => {
         return result
     } 
 
-    result = { user }
-    return result
+    return user;
 }
 
 module.exports =  {

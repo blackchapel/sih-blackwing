@@ -1,8 +1,6 @@
 const Auth = require('./../models/auth.schema');
 const User = require('./../models/user.schema');
-const  { generateOtp, validatePassword } = require('./../utilities/utils');
-const sendEmail = require('./email.service');
-const sendSms = require('./sms.service');
+const  { generateOtp, sendEmail, sendSms, validatePassword } = require('./../utilities/utils');
 const speakeasy = require('speakeasy');
 const jwt = require('jsonwebtoken');
 
