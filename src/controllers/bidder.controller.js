@@ -126,5 +126,6 @@ module.exports = {
     getBidderById,
     getBidderList,
     updateBidder,
-    deleteBidder
+    deleteBidder,
+    getAllotedTenders
 };
