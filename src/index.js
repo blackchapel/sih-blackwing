@@ -10,6 +10,7 @@ const tenderRoutes = require('./routers/tender.router');
 const departmentRoutes = require('./routers/department.router');
 const staffRoutes = require('./routers/staff.router');
 const progressLogRoutes = require('./routers/progress-log.router');
+const productRoutes = require('./routers/product.router');
 
 // Initializing an express app
 const app = express();
@@ -32,6 +33,7 @@ app.use('/api/tender', tenderRoutes);
 app.use('/api/department', departmentRoutes);
 app.use('/api/staff', staffRoutes);
 app.use('/api/progresslog', progressLogRoutes);
+app.use('/api/product', productRoutes);
 
 // Test API
 app.get('/api', (req, res) => {
