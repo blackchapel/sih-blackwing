@@ -2,6 +2,7 @@ const bcrypt = require('bcryptjs');
 const crypto = require('crypto-js');
 const nodemailer = require('nodemailer');
 const ipfsClient = require('ipfs-http-client');
+const fs = require('fs');
 const dotenv = require('dotenv').config();
 
 const generateOtp = (otpLength) => {
@@ -90,8 +91,11 @@ const ipfs = async (data) => {
             authorization: auth,
         },
     });
+
+    const buffer = fs.readFileSync(data.path);
     
-    let result = await client.add(data);
+    let result = await client.add(buffer);
+    console.log(result.cid);
     let url = process.env.IPFS_URI + '/' + result.path;
     return url;
 }

@@ -5,18 +5,26 @@ const storage = multer.diskStorage({
         cb(null, 'public/uploads');
     },
     filename: function (req, file, cb) {
-        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+        cb(null, file.fieldname + '-' + Date.now() + file.originalname);
     }
 });
 
+const fileFilter = (req, file, cb) => {
+    if (
+        file.mimetype === "image/jpg" ||
+        file.mimetype === "image/jpeg" ||
+        file.mimetype === "image/png"
+    ) {
+        cb(null, true);
+    } else {
+        console.log(file.mimetype);
+        cb(null, false);
+    }
+};
+
 const upload = multer({
     storage: storage,
-    fileFilter(req, file, callback) {
-        if(!file.originalname.match(/\.pdf|ppt|odt|doc|docx/)) {
-            return callback(new Error('Please upload a valid file!!'));
-        }
-        callback(undefined, true);
-    }
-});  
+    fileFilter: fileFilter,
+});
 
 module.exports = upload;
