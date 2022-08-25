@@ -2,7 +2,11 @@ const mongoose = require('mongoose');
 
 const staffSchema = new mongoose.Schema(
     {
-        parentid: {
+        departmentid: {
+            type: String,
+            required: true
+        },
+        userid: {
             type: String,
             required: true
         },

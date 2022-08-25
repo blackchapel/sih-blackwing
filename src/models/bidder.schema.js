@@ -2,6 +2,14 @@ const mongoose = require('mongoose');
 
 const bidderSchema = new mongoose.Schema(
     {
+        userid: {
+            type: String,
+            required: true
+        },
+        bidids: {
+            type: [String],
+            required: true
+        },
         email: {
             type: String,
             required: true,

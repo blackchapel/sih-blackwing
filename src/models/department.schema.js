@@ -1,6 +1,14 @@
 const mongoose = require('mongoose');
 
 const departmentSchema = new mongoose.Schema({
+    tenderids: [{
+        type: String,
+        required: true
+    }],
+    staffids: [{
+        type: String,
+        required: true
+    }],
     name: {
         type: String,
         required: true,
