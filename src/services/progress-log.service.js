@@ -32,8 +32,8 @@ const progressLogCreate = async (req) => {
         let nextDate = new Date();
         nextDate.setDate(nextDate.getDate() + 7);
 
-        if(req.body.data.file) {
-            fileurl = ipfs(req.body.data.file);
+        if(req.file) {
+            fileurl = ipfs(req.file);
         }
         
         let newLog = {
