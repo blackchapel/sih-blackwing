@@ -101,6 +101,13 @@ const deleteBidder = async (req, res) => {
     }
 };
 
+const getAllotedTenders = async (req, res) => {
+    try {
+        let result = await getTendersAlloted(req);
+        
+    }
+}
+
 module.exports = {
     createBidder,
     getBidderById,
