@@ -6,7 +6,7 @@ const staffList = async (req) => {
     let staffs;
 
     const staff = await Staff.findById(req.parentId);
-    const queryObj = { isdeleted: false, parentid: staff.parentid };
+    const queryObj = { isdeleted: false, departmentid: staff.departmentid };
 
     let aggregationPipeline = [];
 
