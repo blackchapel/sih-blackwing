@@ -51,7 +51,7 @@ const staffCreate = async (req) => {
     password = hashPassword(req.body.password);
     const staff = await Staff.findById(req.parentId);
     let newStaff = new Staff({
-        departmentid: req.body.departmentid,
+        departmentid: staff.departmentid,
         title: req.body.title,
         name: req.body.name,
         dateofbirth: req.body.dateofbirth,
