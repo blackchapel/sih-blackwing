@@ -22,7 +22,7 @@ const bidSchema = new mongoose.Schema({
     status: {
         type: String,
         required: true,
-        enum: ['accepted', 'rejected', 'finalized']
+        enum: ['ACCEPTED', 'REJECTED', 'FINALIZED']
     }
 });
 

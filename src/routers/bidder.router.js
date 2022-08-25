@@ -12,7 +12,7 @@ const router = new express.Router();
 
 router.get('/', [auth.verifyJwtToken, auth.userTypeAdmin],getBidderList);
 
-router.get('/:id', [auth.verifyJwtToken, auth.userTypeBidder],getBidderById);
+router.get('/:id', getBidderById);
 
 router.post('/', createBidder);
 
