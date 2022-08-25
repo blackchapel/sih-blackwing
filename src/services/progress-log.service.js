@@ -4,7 +4,8 @@ const { encrypt, decrypt, ipfs } = require('../utilities/utils');
 
 const progressLogList = async (req) => {
     let result;
-    const logs = await ProgressLog.findById(req.body.tenderid);
+    console.log(req.body);
+    const logs = await ProgressLog.find({tenderid: req.body.tenderid});
 
     result = {
         message: 'Progress Logs',
@@ -47,10 +48,13 @@ const progressLogCreate = async (req) => {
             nextlog: nextDate,
             logs: [newLog]
         };
-    
-        let newProgressLog = await newStaff.save(new Staff(progressLogObj));
+        progressLogObj = new ProgressLog(progressLogObj);
+        await progressLogObj.save();
 
-        const encryptedData = encrypt(newProgressLog);
+        const data = {
+            progressLogObj
+        };
+        const encryptedData = encrypt(data);
     
         result = {
             message: 'Log successfully created',

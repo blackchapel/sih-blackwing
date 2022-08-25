@@ -24,6 +24,7 @@ const createProgressLog = async (req, res) => {
 
 const getProgressLogList = async (req, res) => {
     try {
+        console.log(req.body);
         let result = await progressLogList(req);
 
         if (result.error) {

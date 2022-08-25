@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const progressLogSchema = new mongoose.Schema({
     tenderid: {
         type: String,
-        required: true
+        required: false
     },
     lastlog: {
         type: Date,
