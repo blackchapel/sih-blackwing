@@ -25,31 +25,29 @@ const progressLogList = async (req) => {
 
 const progressLogCreate = async (req) => {
     let result, fileurl;
-    req.body.data = encrypt(req.body);
-    console.log(req.body);
     req.body.data = decrypt(req.body.data);
-    console.log(req.body.data);
+   
     const log = await ProgressLog.findById(req.body.tenderid);
     if (!log) {
         let nextDate = new Date();
         nextDate.setDate(nextDate.getDate() + 7);
 
-        if(req.body.file) {
-            fileurl = ipfs(req.body.file);
+        if(req.body.data.file) {
+            fileurl = ipfs(req.body.data.file);
         }
         
         let newLog = {
             logdate: Date.now(),
             duedate: nextDate,
-            description: req.body.description,
+            description: req.body.data.description,
             file: {
-                name: req.body.filename,
+                name: req.body.data.filename,
                 url: fileurl
             }
         };
 
         let progressLogObj = {
-            tenderid: req.body.tenderid,
+            tenderid: req.body.data.tenderid,
             lastlog: Date.now(),
             nextlog: nextDate,
             logs: [newLog]
@@ -73,9 +71,9 @@ const progressLogCreate = async (req) => {
         let newLog = {
             logdate: Date.now(),
             duedate: nextDate,
-            description: req.body.description,
+            description: req.body.data.description,
             file: {
-                name: req.body.filename,
+                name: req.body.data.filename,
                 url: fileurl
             }
         };
