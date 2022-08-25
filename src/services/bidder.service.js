@@ -1,6 +1,8 @@
 const Bidder = require('../models/bidder.schema');
+const Bid = require('./../models/bid.schema');
 const verifyGstin = require('./verification.service');
 const { createUser } = require('./user.service');
+const { encrypt, decrypt } = require('./../utilities/utils');
 
 const bidderList = async (searchText, pageNo, pageSize) => {
     let result;
@@ -58,18 +60,23 @@ const bidderById = async (req) => {
         return result;
     }
 
+    const data = {
+        bidder
+    };
+
+    const encryptedData = encrypt(data);
+
     result = {
         message: 'Bidder details',
-        data: {
-            bidder
-        }
+        data: encryptedData
     };
     return result;
 }
 
 const bidderCreate = async (req) => {
     let result;
-    let newBidder = new Bidder(req.body);
+    req.body.data = decrypt(req.body.data);
+    let newBidder = new Bidder(req.body.data);
     
     let information = true;
     const panVerification = 1;
@@ -105,14 +112,18 @@ const bidderCreate = async (req) => {
 
     const newUser = await createUser(req, newBidder, 'BIDDER');
 
+    const data = {
+        authEmailId: newUser.authEmailId,
+        authSmsId:  newUser.authSmsId,
+        newBidder,
+        newUser:  newUser.newUser
+    };
+
+    const encryptedData = encrypt(data);
+
     result = {
         message: 'Bidder successfully created',
-        data: { 
-            authEmailId: newUser.authEmailId,
-            authSmsId:  newUser.authSmsId,
-            newBidder,
-            newUser:  newUser.newUser
-        }
+        data: encryptedData
     };
     return result;
 };
@@ -120,7 +131,9 @@ const bidderCreate = async (req) => {
 const bidderUpdate = async (req) => {
     let result;
 
-    const bidder = await Bidder.findByIdAndUpdate(req.params.id, req.body);
+    req.body.data = decrypt(req.body.data);
+
+    const bidder = await Bidder.findByIdAndUpdate(req.params.id, req.body.data);
 
     if (!bidder) {
         result = {
@@ -130,9 +143,15 @@ const bidderUpdate = async (req) => {
         return result;
     }
 
+    const data = {
+        bidder
+    };
+
+    const encryptedData = encrypt(data);
+
     result = {
         message: 'Bidder updated successfully',
-        data: bidder
+        data: encryptedData
     };
     return result;
 };
@@ -150,17 +169,55 @@ const bidderDelete = async (req) => {
         return result;
     }
 
+    const data = {
+        bidder
+    };
+
+    const encryptedData = encrypt(data);
+
     result = {
         message: 'Bidder deleted successfully',
-        data: bidder
+        data: encryptedData
     };
     return result;
 };
+
+const getTendersAlloted = async (req) => {
+    let result;
+    const bidder = await Bidder.findById(req.params.id);
+
+    if (!bidder) {
+        result = {
+            message: 'Bidder not found',
+            error: 404
+        };
+    }
+
+    let aggregationPipeline = [];
+    const queryObj = {
+        status: 'FINALIZED'
+    };
+    aggregationPipeline.push({ $match: queryObj });
+
+    const allotedBids = await Bid.aggregate(aggregationPipeline);
+
+    const data = {
+        allotedBids
+    };
+    const encryptedData = encrypt(data);
+
+    result = {
+        message: 'Alloted tender list',
+        data: encryptedData
+    };
+    return result;
+}
 
 module.exports = {
     bidderList,
     bidderById,
     bidderCreate,
     bidderUpdate,
-    bidderDelete
+    bidderDelete,
+    getTendersAlloted
 };

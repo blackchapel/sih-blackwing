@@ -2,9 +2,7 @@ const bcrypt = require('bcryptjs');
 const crypto = require('crypto-js');
 const nodemailer = require('nodemailer');
 const ipfsClient = require('ipfs-http-client');
-const fs = require("fs");
 const dotenv = require('dotenv').config();
-const axios = require('axios');
 
 const generateOtp = (otpLength) => {
     let digits = "0123456789";
@@ -76,7 +74,7 @@ const encrypt = (data) => {
 };
 
 const decrypt = (data) => {
-    const bytes = crypto.AES.decrypt(data, process.env.CRYPTO_KE);
+    const bytes = crypto.AES.decrypt(data, process.env.CRYPTO_KEY);
     const decryptData = JSON.parse(bytes.toString(crypto.enc.Utf8));
     return decryptData;
 };
