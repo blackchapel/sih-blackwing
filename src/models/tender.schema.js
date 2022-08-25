@@ -1,7 +1,11 @@
 const mongoose = require('mongoose');
 
 const tenderSchema = new mongoose.Schema({
-    parentid: {
+    departmentid: {
+        type: String,
+        required: false
+    },
+    progresslogid: {
         type: String,
         required: false
     },
@@ -51,11 +55,6 @@ const tenderSchema = new mongoose.Schema({
             file: {
                 type: Buffer,
                 required: false
-            },
-            isdeleted: {
-                type: Boolean,
-                required: false,
-                default: false
             }
         }],
         required: false
