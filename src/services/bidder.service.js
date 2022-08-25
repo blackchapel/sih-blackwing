@@ -1,4 +1,5 @@
 const Bidder = require('../models/bidder.schema');
+const Bid = require('./../models/bid.schema');
 const verifyGstin = require('./verification.service');
 const { createUser } = require('./user.service');
 const { encrypt, decrypt } = require('./../utilities/utils');
@@ -192,7 +193,24 @@ const getTendersAlloted = async (req) => {
         };
     }
 
-    
+    let aggregationPipeline = [];
+    const queryObj = {
+        status: 'FINALIZED'
+    };
+    aggregationPipeline.push({ $match: queryObj });
+
+    const allotedBids = await Bid.aggregate(aggregationPipeline);
+
+    const data = {
+        allotedBids
+    };
+    const encryptedData = encrypt(data);
+
+    result = {
+        message: 'Alloted tender list',
+        data: encryptedData
+    };
+    return result;
 }
 
 module.exports = {
@@ -200,5 +218,6 @@ module.exports = {
     bidderById,
     bidderCreate,
     bidderUpdate,
-    bidderDelete
+    bidderDelete,
+    getTendersAlloted
 };

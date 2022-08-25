@@ -3,7 +3,8 @@ const {
     bidderById, 
     bidderCreate, 
     bidderUpdate, 
-    bidderDelete 
+    bidderDelete,
+    getTendersAlloted
 } = require('./../services/bidder.service');
 
 const createBidder = async (req, res) => {
@@ -104,9 +105,21 @@ const deleteBidder = async (req, res) => {
 const getAllotedTenders = async (req, res) => {
     try {
         let result = await getTendersAlloted(req);
-        
+
+        if (result.error) {
+            res.status(result.error).json({ result });
+            return;
+        }
+
+        res.status(200).json({ result });
+    } catch (error) {
+        res.status(400).json({
+            result: {
+                message: error.message
+            }
+        });
     }
-}
+};
 
 module.exports = {
     createBidder,
