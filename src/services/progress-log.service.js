@@ -4,16 +4,22 @@ const { encrypt, decrypt, ipfs } = require('../utilities/utils');
 
 const progressLogList = async (req) => {
     let result;
-    console.log(req.body);
+    req.body.data = decrypt(req.body.data);
     const logs = await ProgressLog.find({tenderid: req.body.tenderid});
+
+    const data = {
+        logs
+    };
+    const encryptedData = encrypt(data);
 
     result = {
         message: 'Progress Logs',
         data: {
-            logs
+            encryptedData
         }
     };
     return result;
+
 
 }
 
