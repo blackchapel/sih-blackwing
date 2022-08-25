@@ -6,7 +6,7 @@ const staffList = async (req) => {
     let staffs;
 
     const staff = await Staff.findById(req.parentId);
-    const queryObj = { isdeleted: false, parentid: staff.parentid };
+    const queryObj = { isdeleted: false, departmentid: staff.departmentid };
 
     let aggregationPipeline = [];
 
@@ -47,7 +47,21 @@ const staffById = async (req) => {
 
 const staffCreate = async (req) => {
     let result;
-    let newStaff = new Staff(req.body);
+    const staff = await Staff.findById(req.parentId);
+    let newStaff = new Staff({
+        departmentid: staff.departmentid,
+        userid: req.userId,
+        title: req.body.title,
+        name: req.body.name,
+        dateofbirth: req.body.dateofbirth,
+        email: req.body.email,
+        secretariatdepartment: req.body.secretariatdepartment,
+        organizationname: req.body.organizationname,
+        designation: req.body.designation,
+        address: req.body.address,
+        mobile: req.body.mobile,
+        role: req.body.role
+    });
     newStaff = await newStaff.save();
 
     const newUser = await createUser(req, newStaff, req.body.role);
