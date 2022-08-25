@@ -1,10 +1,6 @@
 const mongoose = require('mongoose');
 
 const progressLogSchema = new mongoose.Schema({
-    bidid: {
-        type: String,
-        required: true
-    },
     tenderid: {
         type: String,
         required: true
@@ -17,7 +13,7 @@ const progressLogSchema = new mongoose.Schema({
         type: Date,
         required: false
     },
-    log: {
+    logs: [{
         logdate: {
             type: Date,
             required: false
@@ -30,7 +26,7 @@ const progressLogSchema = new mongoose.Schema({
             type: String,
             required: false
         },
-        files: [{
+        file: {
             name: {
                 type: String, 
                 required: false
@@ -39,8 +35,8 @@ const progressLogSchema = new mongoose.Schema({
                 type: String, 
                 required: false
             }
-        }]
-    }
+        }
+    }]
 });
 
 const ProgressLog = mongoose.model('progress-log', progressLogSchema);
