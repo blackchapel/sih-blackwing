@@ -11,7 +11,7 @@ const connectionParameters = {
 // Checking environment
 let URI = process.env.MONGODB_URI_DEV;
 if (process.env.ENVIRONMENT === 'prod') {
-    URI = process.env.MONGODB_URI;
+    URI = process.env.MONGODB_URI_PROD;
 }
 
 // Connecting to the database
