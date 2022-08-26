@@ -4,7 +4,8 @@ const {
     tenderCreate, 
     tenderUpdate, 
     tenderDelete,
-    getTendersDepartment
+    getTendersDepartment,
+    getTenderBids
 } = require('./../services/tender.service');
 
 const createTender = async (req, res) => {
@@ -96,11 +97,26 @@ const getDepartmentTenders = async (req, res) => {
     }
 };
 
+const getTenderBids = async (req, res) => {
+    try {
+        let result = await getTenderBids(req);
+
+        res.status(200).json({ result });
+    } catch (error) {
+        res.status(400).json({
+            result: {
+                message: error.message
+            }
+        });
+    }
+};
+
 module.exports = {
     createTender,
     getTenderById,
     getTenderList,
     updateTender,
     deleteTender,
-    getDepartmentTenders
+    getDepartmentTenders,
+    getTenderBids
 };

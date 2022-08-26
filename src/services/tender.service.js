@@ -1,4 +1,5 @@
 const { query } = require('express');
+const Bid = require('../models/bid.schema');
 const Tender = require('../models/tender.schema');
 const Staff = require('./../models/staff.schema');
 
@@ -142,11 +143,25 @@ const getTendersDepartment = async (req) => {
     return result;
 };
 
+const getTenderBids = async (req) => {
+    let result;
+    const bids = await Bid.find({tenderid: req.params.id});
+
+    result = {
+        message: 'Bids of tender List',
+        data: {
+            bids
+        }
+    };
+    return result;
+}
+
 module.exports = {
     tenderList,
     tenderById,
     tenderCreate,
     tenderUpdate,
     tenderDelete,
-    getTendersDepartment
+    getTendersDepartment,
+    getTenderBids
 };

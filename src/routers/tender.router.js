@@ -6,7 +6,8 @@ const {
     getTenderList, 
     updateTender, 
     deleteTender,
-    getDepartmentTenders
+    getDepartmentTenders,
+    getTenderBids
 } = require('./../controllers/tender.controller');
 
 const router = new express.Router();
@@ -22,6 +23,8 @@ router.post('/', createTender);
 router.put('/:id', updateTender);
 
 router.delete('/:id', deleteTender);
+
+router.get('/:id/bid', getTenderBids);
 
 
 module.exports = router;
