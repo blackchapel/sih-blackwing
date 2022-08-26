@@ -304,6 +304,11 @@ const tenderSchema = new mongoose.Schema({
         }],
         required: false
     },
+    status: {
+        type: String,
+        required: false,
+        enums: ['UNPUBLISHED', 'PUBLISHED', 'BID', 'INPROGRESS', 'CLOSED', 'EXPIRED']
+    },
     isDeleted: {
         type: Boolean,
         default: false
