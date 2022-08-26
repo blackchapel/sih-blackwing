@@ -9,6 +9,10 @@ const tenderSchema = new mongoose.Schema({
         type: String,
         required: false
     },
+    bidids: {
+        type: [String],
+        required: false
+    },
     tenderreferenceno: {
         type: String,
         required: false
@@ -79,8 +83,8 @@ const tenderSchema = new mongoose.Schema({
                     type: Number,
                     required: false
                 },
-                preferredmodel: {
-                    type: String,
+                preferredmodels: {
+                    type: [String],
                     required: false
                 }
         }],
@@ -91,7 +95,7 @@ const tenderSchema = new mongoose.Schema({
         required: false
     },
     nitdocument: {
-        type: Buffer,
+        type: String,
         required: false
     },
     nitverify: {
@@ -237,15 +241,7 @@ const tenderSchema = new mongoose.Schema({
         type: Date,
         required: false
     },
-    publishingat: {
-        type: Date,
-        required: false
-    },
     documentdownloaddate: {
-        type: Date,
-        required: false
-    },
-    documentdownloadat: {
         type: Date,
         required: false
     },
@@ -253,15 +249,7 @@ const tenderSchema = new mongoose.Schema({
         type: Date,
         required: false
     },
-    seekclarificationstartat: {
-        type: Date,
-        required: false
-    },
     seekclarificationenddate: {
-        type: Date,
-        required: false
-    },
-    seekclarificationendupto: {
         type: Date,
         required: false
     },
@@ -269,15 +257,7 @@ const tenderSchema = new mongoose.Schema({
         type: Date,
         required: false
     },
-    prebidmeetingat: {
-        type: Date,
-        required: false
-    },
     bidsubmissionstartdate: {
-        type: Date,
-        required: false
-    },
-    bidsubmissionstartat: {
         type: Date,
         required: false
     },
@@ -285,15 +265,7 @@ const tenderSchema = new mongoose.Schema({
         type: Date,
         required: false
     },
-    bidsubmissionclosingupto: {
-        type: Date,
-        required: false
-    },
     bidopeningdate: {
-        type: Date,
-        required: false
-    },
-    bidopeningat: {
         type: Date,
         required: false
     },
@@ -316,7 +288,7 @@ const tenderSchema = new mongoose.Schema({
                 required: false
             },
             file: {
-                type: Buffer,
+                type: String,
                 required: true
             },
             isdeleted: {
