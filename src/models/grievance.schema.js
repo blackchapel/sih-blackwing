@@ -5,6 +5,10 @@ const grievanceSchema = new mongoose.Schema({
         type: String,
         required: false
     },
+    departmentid: {
+        type: String,
+        required: false
+    },
     title: {
         type: String,
         required: false
