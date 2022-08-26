@@ -143,6 +143,10 @@ const bidderSchema = new mongoose.Schema(
             required: false,
             trim: true
         },
+        gstVerificationData: {
+            type: String,
+            required: false
+        },
         isDeleted: {
             type: Boolean,
             default: false
