@@ -4,7 +4,6 @@ const db = require('./utilities/connection');
 const cors = require('cors');
 const morgan = require('morgan');
 const fs = require('fs');
-const path = require("path");
 const authRoutes = require('./routers/auth.router');
 const bidderRoutes = require('./routers/bidder.router');
 const tenderRoutes = require('./routers/tender.router');
@@ -13,6 +12,7 @@ const staffRoutes = require('./routers/staff.router');
 const progressLogRoutes = require('./routers/progress-log.router');
 const productRoutes = require('./routers/product.router');
 const grievanceRoutes = require('./routers/grievance.router');
+const bidRoutes = require('./routers/bid.router');
 
 // Initializing an express app
 const app = express();
@@ -24,7 +24,6 @@ const PORT = process.env.PORT;
 app.use(cors({origin: true}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Logging incoming requests
 app.use(morgan('dev'));
@@ -38,11 +37,7 @@ app.use('/api/staff', staffRoutes);
 app.use('/api/progresslog', progressLogRoutes);
 app.use('/api/product', productRoutes);
 app.use('/api/grievance', grievanceRoutes);
-
-// Error Handling for Multer
-app.use((error, req, res, next) => {
-	console.log('This is the rejected field ->', error.field);
-});
+app.use('api/bid', bidRoutes);
 
 // Test API
 app.get('/api', (req, res) => {

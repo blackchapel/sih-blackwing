@@ -6,7 +6,9 @@ const {
     getTenderList, 
     updateTender, 
     deleteTender,
-    getDepartmentTenders
+    getDepartmentTenders,
+    getTenderBids,
+    tenderOpen
 } = require('./../controllers/tender.controller');
 
 const router = new express.Router();
@@ -17,11 +19,14 @@ router.get('/', getTenderList);
 
 router.get('/:id', getTenderById);
 
-router.post('/', createTender);
+router.post('/', [auth.verifyJwtToken, auth.userTypeDepartmentStaff], createTender);
 
 router.put('/:id', updateTender);
 
 router.delete('/:id', deleteTender);
 
+router.get('/:id/bid', getTenderBids);
+
+router.get('/:id/open', [auth.verifyJwtToken, auth.userTypeDepartmentStaff], tenderOpen);
 
 module.exports = router;

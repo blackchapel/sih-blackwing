@@ -22,7 +22,23 @@ const bidSchema = new mongoose.Schema({
     status: {
         type: String,
         required: true,
-        enum: ['ACCEPTED', 'REJECTED', 'FINALIZED']
+        enum: ['APPLIED', 'ACCEPTED', 'REJECTED', 'FINALIZED']
+    },
+    boq: {
+        type: [{
+            offeredmodels: {
+                type: [String],
+                required: false
+            },
+            unitrate: {
+                type: Number,
+                required: false
+            },
+            warranty: {
+                type: String,
+                required: false
+            }
+        }]
     }
 });
 
