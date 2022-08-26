@@ -21,8 +21,8 @@ const PORT = process.env.PORT;
 
 // Formatting incoming data and allowing cross origin requests
 const corsOptions ={
-    origin:'http://localhost:3000/', 
-    credentials:true,            //access-control-allow-credentials:true
+    origin:'*', 
+    credentials:true,
     optionSuccessStatus:200
 }
 app.use(cors(corsOptions));
