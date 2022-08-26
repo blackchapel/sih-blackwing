@@ -4,7 +4,7 @@ const db = require('./utilities/connection');
 const cors = require('cors');
 const morgan = require('morgan');
 const fs = require('fs');
-const path = require("path");
+const path = require('path');
 const authRoutes = require('./routers/auth.router');
 const bidderRoutes = require('./routers/bidder.router');
 const tenderRoutes = require('./routers/tender.router');
@@ -13,6 +13,7 @@ const staffRoutes = require('./routers/staff.router');
 const progressLogRoutes = require('./routers/progress-log.router');
 const productRoutes = require('./routers/product.router');
 const grievanceRoutes = require('./routers/grievance.router');
+const bidRoutes = require('./routers/bid.router');
 
 // Initializing an express app
 const app = express();
@@ -38,6 +39,7 @@ app.use('/api/staff', staffRoutes);
 app.use('/api/progresslog', progressLogRoutes);
 app.use('/api/product', productRoutes);
 app.use('/api/grievance', grievanceRoutes);
+app.use('api/bid', bidRoutes);
 
 // Error Handling for Multer
 app.use((error, req, res, next) => {
