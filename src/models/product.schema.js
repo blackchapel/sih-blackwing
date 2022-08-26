@@ -26,7 +26,7 @@ const productSchema = new mongoose.Schema({
         required: false
     },
     thumbnail: {
-        type: Buffer,
+        type: String,
         required: false
     },
     categories: {

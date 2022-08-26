@@ -1,6 +1,6 @@
 {
   "name": "sih-blackwing",
-  "version": "0.0.54",
+  "version": "0.0.55",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -17,6 +17,7 @@
   "dependencies": {
     "axios": "^0.27.2",
     "bcryptjs": "^2.4.3",
+    "cloudinary": "^1.30.1",
     "cors": "^2.8.5",
     "crypto-js": "^4.1.1",
     "dotenv": "^16.0.1",

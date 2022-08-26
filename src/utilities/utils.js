@@ -3,6 +3,7 @@ const crypto = require('crypto-js');
 const nodemailer = require('nodemailer');
 const ipfsClient = require('ipfs-http-client');
 const fs = require('fs');
+const cloudinary = require('cloudinary').v2;
 const dotenv = require('dotenv').config();
 
 const generateOtp = (otpLength) => {
@@ -98,7 +99,13 @@ const ipfs = async (data) => {
     console.log(result.cid);
     let url = process.env.IPFS_URI + '/' + result.path;
     return url;
-}
+};
+
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 module.exports = { 
     generateOtp,
@@ -108,5 +115,6 @@ module.exports = {
     validatePassword,
     encrypt,
     decrypt,
-    ipfs
+    ipfs,
+    cloudinary
 };

@@ -1,4 +1,5 @@
 const Product = require('./../models/product.schema');
+const { cloudinary } = require('./../utilities/utils');
 
 const productList = async (req) => {
     let result, products;
@@ -35,6 +36,14 @@ const productById = async (req) => {
 
 const productCreate = async (req) => {
     let result;
+
+    let fileUrl;
+    if (req.file) {
+        fileUrl = await cloudinary.uploader.upload(req.file.path, {
+            public_id: 'home/public/uploads/' + req.file.filename,
+        });
+    }
+
     let newProduct = {
         title: req.body.title,
         description: req.body.description,
@@ -42,7 +51,7 @@ const productCreate = async (req) => {
         offeredprice: req.body.offeredprice,
         availability: req.body.availability,
         hsncode: req.body.hsncode,
-        thumbnail: req.file,
+        thumbnail: fileUrl.url,
         categores: req.body.categories,
         specifications: req.body.specifications
     }
