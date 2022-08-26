@@ -1,6 +1,6 @@
 {
   "name": "sih-blackwing",
-  "version": "0.0.56",
+  "version": "0.0.57",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -29,6 +29,7 @@
     "multer": "^1.4.5-lts.1",
     "nodemailer": "^6.7.7",
     "nodemon": "^2.0.19",
+    "path": "^0.12.7",
     "speakeasy": "^2.0.0",
     "twilio": "^3.80.1"
   }

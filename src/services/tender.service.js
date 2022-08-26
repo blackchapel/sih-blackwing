@@ -1,4 +1,6 @@
+const { query } = require('express');
 const Tender = require('../models/tender.schema');
+const Staff = require('./../models/staff.schema');
 
 const tenderList = async (query, pageNo, pageSize) => {
     let result, tenders;
@@ -69,8 +71,10 @@ const tenderById = async (req) => {
 
 const tenderCreate = async (req) => {
     let result;
+    
     const newTender = new Tender(req.body);
-
+    const staff = new Staff.findById(req.parentId);
+    newTender.departmentid = staff.departmentid;
     await newTender.save();
 
     result = {
@@ -106,10 +110,43 @@ const tenderDelete = async (req) => {
     return result;
 };
 
+const getTendersDepartment = async (req) => {
+    let result, tenders;
+    const staff = await Staff.findById(req.parentId);
+    const queryObj = { isDeleted: false, departmentid: staff.departmentid };
+
+    let aggregationPipeline = [];
+
+    if (req.query.tendertype && !req.query.tendertype.includes('undefined')) {
+        queryObj['tendertype'] = { $in: req.query.tendertype.split(",") };
+    }
+
+    if (req.query.tendercategory && !req.query.tendercategory.includes('undefined')) {
+        queryObj['tendercategory'] = { $in: query.tendercategory.split(",") };
+    }
+
+    if (req.query.status && !req.query.status.includes('undefined')) {
+        queryObj['status'] = { $in: req.query.status.split(",") };
+    }
+
+    aggregationPipeline.push({ $match: queryObj });
+
+    tenders = await Tender.aggregate(aggregationPipeline).collation({ locale: 'en_US' });
+
+    result = {
+        message: 'Tender List',
+        data: {
+            tenders
+        }
+    };
+    return result;
+};
+
 module.exports = {
     tenderList,
     tenderById,
     tenderCreate,
     tenderUpdate,
-    tenderDelete
+    tenderDelete,
+    getTendersDepartment
 };
