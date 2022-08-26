@@ -44,17 +44,19 @@ const tenderSchema = new mongoose.Schema({
     },
     coverdetails: {
         type: [{
-            documentdescription: {
+            foldername: {
                 type: String,
                 required: false
             },
-            documenttype: {
-                type: String,
-                required: false
-            },
-            file: [{
-                type: String,
-                required: false
+            files: [{
+                documentdescription: {
+                    type: String,
+                    required: false
+                },
+                documenttype: {
+                    type: String,
+                    required: false
+                }
             }]
         }],
         required: false
