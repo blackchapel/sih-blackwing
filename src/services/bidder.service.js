@@ -1,7 +1,6 @@
 const Bidder = require('../models/bidder.schema');
 const Bid = require('./../models/bid.schema');
 const Tender = require('./../models/tender.schema');
-const { verifyGstin } = require('./../utilities/utils');
 const { createUser } = require('./user.service');
 const { encrypt, decrypt } = require('./../utilities/utils');
 
@@ -86,20 +85,6 @@ const bidderCreate = async (req) => {
     if (!panVerification) {
         result = {
             message: 'Enter correct PAN',
-            error: 400
-        }
-        information = false;
-    }
-    if (gstinVerfication.data.status_code != 1) {
-        result = {
-            message: 'Enter correct GSTIN',
-            error: 400
-        }
-        information = false;
-    }
-    if (!panVerification && !gstinVerfication) {
-        result = {
-            message: 'Enter correct PAN & GSTIN',
             error: 400
         }
         information = false;
