@@ -5,7 +5,7 @@ const { encrypt, decrypt } = require('./../utilities/utils');
 const grievanceList = async (req) => {
     let result;
     req.body.data = decrypt(req.body.data);
-    const grievances = await Grievance.find({tenderid: req.body.data.tenderid});
+    const grievances = await Grievance.find({departmentid: req.user.parentid});
 
     const data = {
         grievances
@@ -28,6 +28,7 @@ const grievanceCreate = async (req) => {
 
     let grievanceObj = {
         tenderid: req.body.data.tenderid,
+        departmentid: req.user.parentid,
         title: req.body.data.title,
         description: req.body.data.description,
         status: 'pending',

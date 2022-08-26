@@ -24,7 +24,7 @@ const createGrievance = async (req, res) => {
 
 const listGrievance = async (req, res) => {
     try {
-        console.log(req.body);
+        
         let result = await grievanceList(req);
 
         if (result.error) {
