@@ -8,6 +8,7 @@ const {
     deleteTender,
     getDepartmentTenders
 } = require('./../controllers/tender.controller');
+const upload = require('./../utilities/multer');
 
 const router = new express.Router();
 
@@ -17,7 +18,7 @@ router.get('/', getTenderList);
 
 router.get('/:id', getTenderById);
 
-router.post('/', createTender);
+router.post('/', [auth.verifyJwtToken, auth.userTypeDepartmentStaff], upload.fields([{ name: 'nitdoc', maxCount: 1 }, { name: workdocument, maxCount: 20 }]), createTender);
 
 router.put('/:id', updateTender);
 

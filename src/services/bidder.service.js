@@ -113,6 +113,9 @@ const bidderCreate = async (req) => {
 
     const newUser = await createUser(req, newBidder, 'BIDDER');
 
+    newBidder.userid = newUser._id;
+    await newBidder.save();
+
     const data = {
         authEmailId: newUser.authEmailId,
         authSmsId:  newUser.authSmsId,

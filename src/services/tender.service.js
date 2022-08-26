@@ -1,6 +1,6 @@
-const { query } = require('express');
 const Tender = require('../models/tender.schema');
 const Staff = require('./../models/staff.schema');
+const { cloudinary } = require('./../utilities/utils');
 
 const tenderList = async (query, pageNo, pageSize) => {
     let result, tenders;
@@ -75,6 +75,23 @@ const tenderCreate = async (req) => {
     const newTender = new Tender(req.body);
     const staff = new Staff.findById(req.parentId);
     newTender.departmentid = staff.departmentid;
+
+    if (req.files.workdocumentfiles) {
+        for (let i = 0; i < req.files.workdocumentfiles.length; i++) {
+            const fileUrl = await cloudinary.uploader.upload(req.files.workdocumentfiles[i].path, {
+                public_id: 'home/public/uploads/' + req.files.workdocumentfiles[i].filename,
+            });
+            newTender.workdocuments[i].file = fileUrl;
+        }
+    }
+
+    if (req.files.nitdoc) {
+        const fileUrl = await cloudinary.uploader.upload(req.files.nitdoc[0].path, {
+            public_id: 'home/public/uploads/' + req.files.nitdoc[0].filename,
+        });
+        newTender.nitdocument = fileUrl;
+    }
+
     await newTender.save();
 
     result = {
