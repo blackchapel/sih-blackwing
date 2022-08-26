@@ -232,8 +232,8 @@ const getTendersAllottedSelected = async (req) => {
     }
 
     let aggregationPipeline = [];
-    const queryObj = {
-        status: 'FINALIZED' | 'ACCEPTED'
+    const queryObj = { $or: [
+        {status: 'FINALIZED'}, {status: 'ACCEPTED'}, {status: 'APPLIED'} ]
     };
     aggregationPipeline.push({ $match: queryObj });
 

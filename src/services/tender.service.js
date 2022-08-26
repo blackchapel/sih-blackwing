@@ -1,6 +1,7 @@
 const { query } = require('express');
 const Tender = require('../models/tender.schema');
 const Staff = require('./../models/staff.schema');
+const Bid = require('../models/bid.schema');
 
 const tenderList = async (query, pageNo, pageSize) => {
     let result, tenders;
@@ -142,11 +143,56 @@ const getTendersDepartment = async (req) => {
     return result;
 };
 
+
+const getTenderBids = async (req) => {
+    let result;
+    const bids = await Bid.find({tenderid: req.params.id});
+
+    const tender = await Tender.findById(req.params.id);
+    const tenderboq = tender.boq;
+
+
+    let requirements = [], responses = [];
+    for (let i = 0; i < tenderboq.length; i++) {
+        let obj = {
+            sl_no: i+1,
+            Estimated_Rate: tenderboq.rate,
+            prefered_models: tenderboq.preferredmodels
+        };
+        requirements.push(obj);
+    }
+
+    for (let i = 0; i < bids.length; i++) {
+        let bidder = await Bidder.findById(bids[i].bidderid);
+        let obj = {
+            bidder_id: bids[i].bidderid,
+            bidder_offer: bids[i].boq,
+            bidder: bidder
+        };
+        responses.push(obj);
+    }
+
+    let bbsmData = {
+        requirement: requirements,
+        response: responses
+    };
+
+    result = {
+        message: 'Bids of tender List',
+        data: {
+            bids,
+            bbsmData
+        }
+    };
+    return result;
+}
+
 module.exports = {
     tenderList,
     tenderById,
     tenderCreate,
     tenderUpdate,
     tenderDelete,
-    getTendersDepartment
+    getTendersDepartment,
+    getTenderBids
 };

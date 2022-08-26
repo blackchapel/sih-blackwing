@@ -53,7 +53,22 @@ const bidStatusChange = async (req) => {
     return result;
 }
 
+const bidById = async (req) => {
+    let result;
+
+    const bid = await Bid.findById(req.params.id);
+
+    result = {
+        message: 'Bid details',
+        data: {
+            bid
+        }
+    };
+    return result;
+}
+
 module.exports = {
     bidApply,
-    bidStatusChange
+    bidStatusChange,
+    bidById
 };

@@ -1,6 +1,7 @@
 const {
     bidApply,
-    bidStatusChange
+    bidStatusChange,
+    bidById
 } = require('./../services/bid.service');
 
 const applyBid = async (req, res) => {
@@ -41,7 +42,22 @@ const changeBidStatus = async (req, res) => {
     }
 }
 
+const getBidById = async (req, res) => {
+    try {
+        let result = await bidById(req);
+
+        res.status(200).json({ result });
+    } catch (error) {
+        res.status(400).json({
+            result: {
+                message: error.message
+            }
+        });
+    }
+}
+
 module.exports = {
     applyBid,
-    changeBidStatus
+    changeBidStatus,
+    getBidById
 };
