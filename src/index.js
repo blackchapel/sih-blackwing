@@ -24,7 +24,6 @@ const PORT = process.env.PORT;
 app.use(cors({origin: true}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Logging incoming requests
 app.use(morgan('dev'));
