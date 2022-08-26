@@ -6,6 +6,7 @@ const {
     tenderDelete,
     getTendersDepartment
 } = require('./../services/tender.service');
+const Tender = require('../models/tender.schema');
 
 const createTender = async (req, res) => {
     try {
@@ -96,11 +97,33 @@ const getDepartmentTenders = async (req, res) => {
     }
 };
 
+const tenderOpen = async (req, res) => {
+    try {
+        const tender = await Tender.findByIdAndUpdate(req.params.id, { status: 'BID' }, { new: true });
+
+        const result = {
+            message: 'Tender open for bids',
+            data: { 
+                tender
+            }
+        };
+        
+        res.status(200).json({ result });
+    } catch (error) {
+        res.status(400).json({
+            result: {
+                message: error.message
+            }
+        });
+    } 
+};
+
 module.exports = {
     createTender,
     getTenderById,
     getTenderList,
     updateTender,
     deleteTender,
-    getDepartmentTenders
+    getDepartmentTenders,
+    tenderOpen
 };
