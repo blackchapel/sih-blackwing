@@ -91,7 +91,7 @@ const tenderSchema = new mongoose.Schema({
         required: false
     },
     nitdocument: {
-        type: Buffer,
+        type: String,
         required: false
     },
     nitverify: {
@@ -302,7 +302,7 @@ const tenderSchema = new mongoose.Schema({
         required: false
     },
     workdocuments: {
-        type: [{
+        type: {
             tenderid: {
                 type: String,
                 required: false
@@ -316,7 +316,7 @@ const tenderSchema = new mongoose.Schema({
                 required: false
             },
             file: {
-                type: Buffer,
+                type: String,
                 required: true
             },
             isdeleted: {
@@ -329,7 +329,7 @@ const tenderSchema = new mongoose.Schema({
                 required: false,
                 default: false
             }
-        }],
+        },
         required: false
     },
     isDeleted: {
