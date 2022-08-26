@@ -51,7 +51,7 @@ const productCreate = async (req) => {
         offeredprice: req.body.offeredprice,
         availability: req.body.availability,
         hsncode: req.body.hsncode,
-        thumbnail: fileUrl.url,
+        thumbnail: fileUrl.url ? fileUrl.url : undefined,
         categores: req.body.categories,
         specifications: req.body.specifications
     }

@@ -5,7 +5,6 @@ const tenderList = async (query, pageNo, pageSize) => {
     const queryObj = { isDeleted: false };
 
     let aggregationPipeline = [];
-    let searchObj;
     let skip, limit;
 
     if (query.tendertype && !query.tendertype.includes('undefined')) {

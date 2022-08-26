@@ -44,7 +44,7 @@ const progressLogCreate = async (req) => {
             description: req.body.description,
             file: {
                 name: req.body.filename,
-                url: fileurl
+                url: fileUrl.url
             }
         };
 

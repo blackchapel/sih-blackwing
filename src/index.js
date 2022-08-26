@@ -37,6 +37,11 @@ app.use('/api/progresslog', progressLogRoutes);
 app.use('/api/product', productRoutes);
 app.use('/api/grievance', grievanceRoutes);
 
+// Error Handling for Multer
+app.use((error, req, res, next) => {
+	console.log('This is the rejected field ->', error.field);
+});
+
 // Test API
 app.get('/api', (req, res) => {
 	res.status(200).json({
