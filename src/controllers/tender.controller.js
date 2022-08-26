@@ -4,7 +4,8 @@ const {
     tenderCreate, 
     tenderUpdate, 
     tenderDelete,
-    getTendersDepartment
+    getTendersDepartment,
+    getTenderBids
 } = require('./../services/tender.service');
 const Tender = require('../models/tender.schema');
 
@@ -97,6 +98,20 @@ const getDepartmentTenders = async (req, res) => {
     }
 };
 
+const getTenderBids = async (req, res) => {
+    try {
+        let result = await getTenderBids(req);
+
+        res.status(200).json({ result });
+    } catch (error) {
+        res.status(400).json({
+            result: {
+                message: error.message
+            }
+        });
+    }
+};
+
 const tenderOpen = async (req, res) => {
     try {
         const tender = await Tender.findByIdAndUpdate(req.params.id, { status: 'BID' }, { new: true });
@@ -125,5 +140,6 @@ module.exports = {
     updateTender,
     deleteTender,
     getDepartmentTenders,
+    getTenderBids,
     tenderOpen
 };
