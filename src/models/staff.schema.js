@@ -55,6 +55,10 @@ const staffSchema = new mongoose.Schema(
             required: true,
             enum: ['DEPARTMENT_HEAD', 'DEPARTMENT_STAFF']
         },
+        type: {
+            type: String,
+            required: false
+        },
         isdeleted: {
             type: Boolean,
             default: false

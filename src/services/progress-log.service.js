@@ -1,6 +1,6 @@
 const ProgressLog = require('../models/progress-log.schema');
 const Tender = require('../models/tender.schema');
-const { encrypt, decrypt, ipfs } = require('../utilities/utils');
+const { encrypt, decrypt, cloudinary } = require('../utilities/utils');
 
 const progressLogList = async (req) => {
     let result;
@@ -31,8 +31,11 @@ const progressLogCreate = async (req) => {
         let nextDate = new Date();
         nextDate.setDate(nextDate.getDate() + 7);
 
-        if(req.file) {
-            fileurl = await ipfs(req.file);
+        let fileUrl;
+        if (req.file) {
+            fileUrl = await cloudinary.uploader.upload(req.file.path, {
+                public_id: 'home/public/uploads/' + req.file.filename,
+            });
         }
         
         let newLog = {
@@ -41,7 +44,7 @@ const progressLogCreate = async (req) => {
             description: req.body.description,
             file: {
                 name: req.body.filename,
-                url: fileurl
+                url: fileUrl.url
             }
         };
 

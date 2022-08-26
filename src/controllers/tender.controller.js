@@ -3,7 +3,8 @@ const {
     tenderById, 
     tenderCreate, 
     tenderUpdate, 
-    tenderDelete
+    tenderDelete,
+    getTendersDepartment
 } = require('./../services/tender.service');
 
 const createTender = async (req, res) => {
@@ -81,10 +82,25 @@ const deleteTender = async (req, res) => {
     }
 };
 
+const getDepartmentTenders = async (req, res) => {
+    try {
+        let result = await getTendersDepartment(req);
+
+        res.status(200).json({ result });
+    } catch (error) {
+        res.status(400).json({
+            result: {
+                message: error.message
+            }
+        });
+    }
+};
+
 module.exports = {
     createTender,
     getTenderById,
     getTenderList,
     updateTender,
-    deleteTender
+    deleteTender,
+    getDepartmentTenders
 };

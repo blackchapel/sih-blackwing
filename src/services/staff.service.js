@@ -62,6 +62,7 @@ const staffCreate = async (req) => {
         address: req.body.address,
         mobile: req.body.mobile,
         role: req.body.role,
+        type: req.body.type,
         password: req.body.password
     });
     await newStaff.save();
