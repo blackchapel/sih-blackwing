@@ -9,7 +9,7 @@ const {
     getDepartmentTenders,
     tenderOpen,
     tenderSelect,
-    getTenderBids
+    getBidsByTender
 } = require('./../controllers/tender.controller');
 
 const router = new express.Router();
@@ -26,7 +26,7 @@ router.put('/:id', updateTender);
 
 router.delete('/:id', deleteTender);
 
-router.get('/:id/bid', getTenderBids);
+router.get('/:id/bid', getBidsByTender);
 
 
 router.get('/:id/open', [auth.verifyJwtToken, auth.userTypeDepartmentStaff], tenderOpen);
