@@ -123,11 +123,9 @@ const bidderCreate = async (req) => {
         newUser:  newUser.newUser
     };
 
-    const encryptedData = encrypt(data);
-
     result = {
         message: 'Bidder successfully created',
-        data: encryptedData
+        data: data
     };
     return result;
 };
