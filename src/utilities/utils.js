@@ -4,7 +4,6 @@ const nodemailer = require('nodemailer');
 const ipfsClient = require('ipfs-http-client');
 const fs = require('fs');
 const cloudinary = require('cloudinary').v2;
-const axios = require('axios');
 const dotenv = require('dotenv').config();
 
 const generateOtp = (otpLength) => {
@@ -108,12 +107,6 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-const verifyGstin = async (gstinNumber) => {
-    const url = `https://www.knowyourgst.com/developers/gstincall/?gstin=${gstinNumber}`;
-    const response = await axios.get(url, { headers: { 'passthrough': process.env.GSTIN_API_KEY }});
-    return response;
-}
-
 module.exports = { 
     generateOtp,
     sendEmail,
@@ -123,6 +116,5 @@ module.exports = {
     encrypt,
     decrypt,
     ipfs,
-    cloudinary,
-    verifyGstin
+    cloudinary
 };
