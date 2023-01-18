@@ -7,7 +7,7 @@ const {
     updateTender, 
     deleteTender,
     getDepartmentTenders,
-    getTenderBids,
+    getBidsByTender,
     tenderOpen
 } = require('./../controllers/tender.controller');
 
@@ -25,7 +25,7 @@ router.put('/:id', updateTender);
 
 router.delete('/:id', deleteTender);
 
-router.get('/:id/bid', getTenderBids);
+router.get('/:id/bid', getBidsByTender);
 
 router.get('/:id/open', [auth.verifyJwtToken, auth.userTypeDepartmentStaff], tenderOpen);
 

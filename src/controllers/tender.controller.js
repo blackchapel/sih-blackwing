@@ -98,7 +98,7 @@ const getDepartmentTenders = async (req, res) => {
     }
 };
 
-const getTenderBids = async (req, res) => {
+const getBidsByTender = async (req, res) => {
     try {
         let result = await getTenderBids(req);
 
@@ -140,6 +140,6 @@ module.exports = {
     updateTender,
     deleteTender,
     getDepartmentTenders,
-    getTenderBids,
+    getBidsByTender,
     tenderOpen
 };
