@@ -80,7 +80,7 @@ const bidderCreate = async (req) => {
     
     let information = true;
     const panVerification = 1;
-    const gstinVerification = await verifyGstin(newBidder.gstinNumber);
+    const gstinVerification = 1;
 
     if (!panVerification) {
         result = {
