@@ -16,6 +16,6 @@ router.get('/my-products', [auth.verifyJwtToken, auth.userTypeBidder], getMyProd
 
 router.get('/:id', getProductById);
 
-router.post('/', [auth.verifyJwtToken, auth.userTypeBidder], upload.single('file'),createProduct);
+router.post('/', [auth.verifyJwtToken, auth.userTypeBidder], upload.single('file'), createProduct);
 
 module.exports = router;

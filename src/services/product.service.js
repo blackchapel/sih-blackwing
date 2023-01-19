@@ -1,5 +1,6 @@
 const Product = require('./../models/product.schema');
 const { cloudinary } = require('./../utilities/utils');
+const fs = require('fs');
 
 const productList = async (req) => {
     let result, products;
@@ -72,6 +73,8 @@ const productCreate = async (req) => {
 
     newProduct = new Product(newProduct);
     await newProduct.save();
+
+    fs.unlinkSync(req.file.path);
     
     result = {
         message: 'Product successfully created',
