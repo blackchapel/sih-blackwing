@@ -4,6 +4,7 @@ const nodemailer = require('nodemailer');
 const ipfsClient = require('ipfs-http-client');
 const fs = require('fs');
 const cloudinary = require('cloudinary').v2;
+const axios = require('axios');
 const dotenv = require('dotenv').config();
 
 const generateOtp = (otpLength) => {
