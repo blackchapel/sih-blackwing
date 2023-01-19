@@ -3,7 +3,6 @@ const Bid = require('../models/bid.schema');
 const Tender = require('../models/tender.schema');
 const Staff = require('./../models/staff.schema');
 const axios = require('axios');
-const Bid = require('../models/bid.schema');
 
 const tenderList = async (query, pageNo, pageSize) => {
     let result, tenders;
