@@ -45,7 +45,7 @@ const getProductById = async (req, res) => {
 
 const getProductList = async (req, res) => {
     try {
-        let result = await myProductList(req);
+        let result = await productList(req);
 
         if (result.error) {
             res.status(result.error).json({ result });
