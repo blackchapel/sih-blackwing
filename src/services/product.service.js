@@ -14,6 +14,19 @@ const productList = async (req) => {
     return result;
 }
 
+const myProductList = async (req) => {
+    let result, products;
+    products = await Product.find({ parentId: req.userId });
+
+    result = {
+        message: 'Product List',
+        data: {
+            products
+        }
+    };
+    return result;
+}
+
 const productById = async (req) => {
     let result;
 
@@ -45,6 +58,7 @@ const productCreate = async (req) => {
     }
 
     let newProduct = {
+        parentId: req.userId,
         title: req.body.title,
         description: req.body.description,
         mrp: req.body.mrp,
@@ -68,6 +82,7 @@ const productCreate = async (req) => {
 
 module.exports = {
     productList,
+    myProductList,
     productById,
     productCreate
 };

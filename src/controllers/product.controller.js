@@ -1,5 +1,6 @@
 const {
     productList,
+    myProductList,
     productById,
     productCreate
 } = require('./../services/product.service');
@@ -44,7 +45,26 @@ const getProductById = async (req, res) => {
 
 const getProductList = async (req, res) => {
     try {
-        let result = await productList(req);
+        let result = await myProductList(req);
+
+        if (result.error) {
+            res.status(result.error).json({ result });
+            return;
+        }
+
+        res.status(200).json({ result });
+    } catch (error) {
+        res.status(400).json({
+            result: {
+                message: error.message
+            }
+        });
+    }
+};
+
+const getMyProductList = async (req, res) => {
+    try {
+        let result = await myProductList(req);
 
         if (result.error) {
             res.status(result.error).json({ result });
@@ -64,5 +84,6 @@ const getProductList = async (req, res) => {
 module.exports = {
     createProduct,
     getProductById,
-    getProductList
+    getProductList,
+    getMyProductList
 };
