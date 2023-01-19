@@ -1,9 +1,23 @@
 const Product = require('./../models/product.schema');
 const { cloudinary } = require('./../utilities/utils');
+const fs = require('fs');
 
 const productList = async (req) => {
     let result, products;
     products = await Product.find({});
+
+    result = {
+        message: 'Product List',
+        data: {
+            products
+        }
+    };
+    return result;
+}
+
+const myProductList = async (req) => {
+    let result, products;
+    products = await Product.find({ parentId: req.userId });
 
     result = {
         message: 'Product List',
@@ -45,6 +59,7 @@ const productCreate = async (req) => {
     }
 
     let newProduct = {
+        parentId: req.userId,
         title: req.body.title,
         description: req.body.description,
         mrp: req.body.mrp,
@@ -58,6 +73,8 @@ const productCreate = async (req) => {
 
     newProduct = new Product(newProduct);
     await newProduct.save();
+
+    fs.unlinkSync(req.file.path);
     
     result = {
         message: 'Product successfully created',
@@ -68,6 +85,7 @@ const productCreate = async (req) => {
 
 module.exports = {
     productList,
+    myProductList,
     productById,
     productCreate
 };
