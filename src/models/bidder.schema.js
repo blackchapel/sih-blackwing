@@ -4,7 +4,7 @@ const bidderSchema = new mongoose.Schema(
     {
         userid: {
             type: String,
-            required: true
+            required: false
         },
         bidids: {
             type: [String],

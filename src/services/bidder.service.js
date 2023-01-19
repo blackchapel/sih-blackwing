@@ -103,7 +103,10 @@ const bidderCreate = async (req) => {
     newBidder.gstVerificationData = gstinVerification.data;
     newBidder = await newBidder.save();
 
-    const newUser = await createUser(req, newBidder, 'BIDDER');
+    const  newUser = await createUser(req, newBidder, 'BIDDER');
+
+    newBidder.userid = newUser.newUser._id
+    await newBidder.save();
 
     const data = {
         authEmailId: newUser.authEmailId,
@@ -112,11 +115,9 @@ const bidderCreate = async (req) => {
         newUser:  newUser.newUser
     };
 
-    const encryptedData = encrypt(data);
-
     result = {
         message: 'Bidder successfully created',
-        data: encryptedData
+        data: data
     };
     return result;
 };
@@ -224,8 +225,8 @@ const getTendersAllottedSelected = async (req) => {
     }
 
     let aggregationPipeline = [];
-    const queryObj = {
-        status: 'FINALIZED' | 'ACCEPTED'
+    const queryObj = { $or: [
+        {status: 'FINALIZED'}, {status: 'ACCEPTED'}, {status: 'APPLIED'} ]
     };
     aggregationPipeline.push({ $match: queryObj });
 

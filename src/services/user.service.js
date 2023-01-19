@@ -4,7 +4,7 @@ const { sendOtpByEmail, sendOtpBySms } = require('./auth.service');
 
 const createUser = async (req, user, role) => {
     let result;
-    const password = await hashPassword(req.body.password);
+    const password = await hashPassword(req.body.data.password);
 
     let name;
     if (user.companyName) {
