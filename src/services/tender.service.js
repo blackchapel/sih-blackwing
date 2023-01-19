@@ -1,6 +1,8 @@
 const { query } = require('express');
+const Bid = require('../models/bid.schema');
 const Tender = require('../models/tender.schema');
 const Staff = require('./../models/staff.schema');
+const axios = require('axios');
 const Bid = require('../models/bid.schema');
 
 const tenderList = async (query, pageNo, pageSize) => {
@@ -143,14 +145,12 @@ const getTendersDepartment = async (req) => {
     return result;
 };
 
-
 const getTenderBids = async (req) => {
     let result;
     const bids = await Bid.find({tenderid: req.params.id});
 
     const tender = await Tender.findById(req.params.id);
     const tenderboq = tender.boq;
-
 
     let requirements = [], responses = [];
     for (let i = 0; i < tenderboq.length; i++) {

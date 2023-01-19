@@ -20,7 +20,7 @@ router.get('/', getTenderList);
 
 router.get('/:id', getTenderById);
 
-router.post('/', createTender);
+router.post('/', [auth.verifyJwtToken, auth.userTypeDepartmentStaff], createTender);
 
 router.put('/:id', updateTender);
 

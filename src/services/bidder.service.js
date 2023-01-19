@@ -1,9 +1,8 @@
 const Bidder = require('../models/bidder.schema');
 const Bid = require('./../models/bid.schema');
 const Tender = require('./../models/tender.schema');
-const verifyGstin = require('./verification.service');
 const { createUser } = require('./user.service');
-const { encrypt, decrypt } = require('./../utilities/utils');
+const { encrypt, decrypt, verifyGstin } = require('./../utilities/utils');
 
 const bidderList = async (searchText, pageNo, pageSize) => {
     let result;
@@ -81,8 +80,7 @@ const bidderCreate = async (req) => {
     
     let information = true;
     const panVerification = 1;
-    // const gstinVerfication = await verifyGstin(newBidder.gstinNumber);
-    const gstinVerfication = 1;
+    const gstinVerification = await verifyGstin(newBidder.gstinNumber);
 
     if (!panVerification) {
         result = {
@@ -91,16 +89,9 @@ const bidderCreate = async (req) => {
         }
         information = false;
     }
-    if (!gstinVerfication) {
+    if (!gstinVerification) {
         result = {
-            message: 'Enter correct GSTIN',
-            error: 400
-        }
-        information = false;
-    }
-    if (!panVerification && !gstinVerfication) {
-        result = {
-            message: 'Enter correct PAN & GSTIN',
+            message: 'Enter correct PAN',
             error: 400
         }
         information = false;
@@ -109,6 +100,7 @@ const bidderCreate = async (req) => {
         return result;
     }
 
+    newBidder.gstVerificationData = gstinVerification.data;
     newBidder = await newBidder.save();
 
     const  newUser = await createUser(req, newBidder, 'BIDDER');

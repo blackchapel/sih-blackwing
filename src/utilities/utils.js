@@ -107,6 +107,12 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
+const verifyGstin = async (gstinNumber) => {
+    const url = `https://www.knowyourgst.com/developers/gstincall/?gstin=${gstinNumber}`;
+    const response = await axios.get(url, { headers: { 'passthrough': process.env.GSTIN_API_KEY }});
+    return response;
+}
+
 module.exports = { 
     generateOtp,
     sendEmail,
@@ -116,5 +122,6 @@ module.exports = {
     encrypt,
     decrypt,
     ipfs,
-    cloudinary
+    cloudinary,
+    verifyGstin
 };
