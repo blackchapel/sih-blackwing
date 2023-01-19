@@ -2,7 +2,7 @@ const Bidder = require('../models/bidder.schema');
 const Bid = require('./../models/bid.schema');
 const Tender = require('./../models/tender.schema');
 const { createUser } = require('./user.service');
-const { encrypt, decrypt } = require('./../utilities/utils');
+const { encrypt, decrypt, verifyGstin } = require('./../utilities/utils');
 
 const bidderList = async (searchText, pageNo, pageSize) => {
     let result;
@@ -80,9 +80,16 @@ const bidderCreate = async (req) => {
     
     let information = true;
     const panVerification = 1;
-    const gstinVerfication = await verifyGstin(newBidder.gstinNumber);
+    const gstinVerification = await verifyGstin(newBidder.gstinNumber);
 
     if (!panVerification) {
+        result = {
+            message: 'Enter correct PAN',
+            error: 400
+        }
+        information = false;
+    }
+    if (!gstinVerification) {
         result = {
             message: 'Enter correct PAN',
             error: 400
