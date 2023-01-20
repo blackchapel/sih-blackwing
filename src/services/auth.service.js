@@ -37,7 +37,7 @@ const sendOtpBySms = async (req, user) => {
 
     const otp = generateOtp(6);
     const message = `Your verification code is ${otp}`;
-    await sendSms(message, user.mobile);
+    // await sendSms(message, user.mobile);
 
     const auth = await new Auth({
         user: {
